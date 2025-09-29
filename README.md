@@ -13,26 +13,7 @@
 
 - Se define el docker-compose.yml para los dominios y subdominios de los pokemones Charizard, Bulbasur y Pikachu:
 
-services:
-  traefik:
-    image: traefik:v2.10
-    container_name: traefik_proxy
-    command:
-      - "--api.insecure=true"
-      - "--providers.docker=true"
-      - "--entrypoints.web.address=:80"
-    ports:
-      - "80:80"
-      - "8080:8080"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-    networks:
-      - poke_net
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.pikachu.rule=Host(`pikachu.localhost`)"
-      - "traefik.http.routers.charizard.rule=Host(`charizard.localhost`)"
-      - "traefik.http.routers.mewtwo.rule=Host(`bulbasur.localhost`)"
+<img width="733" height="599" alt="image" src="https://github.com/user-attachments/assets/23bf92ea-26ba-4730-92dd-56b83586e220" />
 
 networks:
   poke_net:
