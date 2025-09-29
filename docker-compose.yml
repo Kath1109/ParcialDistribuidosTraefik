@@ -1,0 +1,25 @@
+services:
+  traefik:
+    image: traefik:v2.10
+    container_name: traefik_proxy
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--entrypoints.web.address=:80"
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - poke_net
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.pikachu.rule=Host(`pikachu.localhost`)"
+      - "traefik.http.routers.charizard.rule=Host(`charizard.localhost`)"
+      - "traefik.http.routers.mewtwo.rule=Host(`bulbasur.localhost`)"
+
+networks:
+  poke_net:
+    driver: bridge
+
