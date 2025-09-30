@@ -52,3 +52,11 @@ Así como en el aeropuerto los pasajeros deben mostrar pasaporte o identificaci�
 RateLimit en la API = Control de seguridad
 Igual que en seguridad se controla el flujo de pasajeros (no entran todos a la vez para evitar congestión), el rateLimit limita cuántas solicitudes entran por segundo para proteger la API de abusos.
 
+- Se prueba con credenciales y sin credenciales y se hace prueba de rateLimit:
+
+<img width="1067" height="687" alt="image" src="https://github.com/user-attachments/assets/9cd9806f-a181-40cd-ad8d-4c48b11ad476" />
+
+--- 
+
+## Etapa 4
+
