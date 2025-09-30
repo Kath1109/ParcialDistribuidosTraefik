@@ -18,6 +18,8 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.pikachu.rule=Host(`pikachu.localhost`)"
       - "traefik.http.routers.charizard.rule=Host(`charizard.localhost`)"
+      - "traefik.http.routers.charizard.middlewares=auth-charizard"
+      - "traefik.http.middlewares.auth-charizard.basicauth.users=admin:$2y$05$/8oCMlVpJ0fgMGcmxLYJbegtcGRGH0I5/ZzustqxgPTUga0cAtm82"
       - "traefik.http.routers.bulbasur.rule=Host(`bulbasur.localhost`)"
 
   api_comercial:
@@ -28,8 +30,11 @@ services:
       - poke_net
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.comercial.rule=Host(pikachu.localhost)"
+      - "traefik.http.routers.comercial.rule=Host(`pikachu.localhost`)"
       - "traefik.http.services.comercial.loadbalancer.server.port=80"
+      - "traefik.http.routers.comercial.middlewares=rate-limit"
+      - "traefik.http.middlewares.rate-limit.ratelimit.average=1"
+      - "traefik.http.middlewares.rate-limit.ratelimit.burst=2"
 
   api_legendaria:
     image: nginx:alpine
@@ -37,10 +42,9 @@ services:
       - poke_net
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.legendario.rule=Host(pikachu.localhost) && Path(/legendario)"
+      - "traefik.http.routers.legendario.rule=Host(`pikachu.localhost`) && Path(`/legendario`)"
       - "traefik.http.services.legendario.loadbalancer.server.port=80"
 
 networks:
   poke_net:
     driver: bridge
-
