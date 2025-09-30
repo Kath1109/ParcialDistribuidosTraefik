@@ -5,6 +5,11 @@
 </head>
 <body>
   <h1>Bienvenido a la sala de prensa Pokémon</h1>
-  <p>La hora actual del servidor es: {{TIME}}</p>
+  <p>La hora actual del servidor es: 
+ <div id="current_date">
+    <script>
+        document.getElementById("current_date").innerHTML = Date();
+    </script>
+</div>  </p>
 </body>
 </html>
