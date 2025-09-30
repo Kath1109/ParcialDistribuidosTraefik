@@ -12,18 +12,19 @@ services:
       - "8080:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./auth:/auth:ro
     networks:
       - poke_net
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.pikachu.rule=Host(`pikachu.localhost`)"
       - "traefik.http.routers.charizard.rule=Host(`charizard.localhost`)"
-      - "traefik.http.routers.charizard.middlewares=auth-charizard"
-      - "traefik.http.middlewares.auth-charizard.basicauth.users=admin:$2y$05$/8oCMlVpJ0fgMGcmxLYJbegtcGRGH0I5/ZzustqxgPTUga0cAtm82"
+      - "traefik.http.routers.charizard.middlewares=charizard-auth"
+      - "traefik.http.middlewares.charizard-auth.basicauth.usersfile=/auth/.htpasswd"
       - "traefik.http.routers.bulbasur.rule=Host(`bulbasur.localhost`)"
 
   api_comercial:
-    image: nginx:alpine
+    build: ./backend
     deploy:
       replicas: 2
     networks:
@@ -31,19 +32,40 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.comercial.rule=Host(`pikachu.localhost`)"
-      - "traefik.http.services.comercial.loadbalancer.server.port=80"
+      - "traefik.http.services.comercial.loadbalancer.server.port=5000"
       - "traefik.http.routers.comercial.middlewares=rate-limit"
       - "traefik.http.middlewares.rate-limit.ratelimit.average=1"
       - "traefik.http.middlewares.rate-limit.ratelimit.burst=2"
 
   api_legendaria:
-    image: nginx:alpine
+    build: ./backend
     networks:
       - poke_net
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.legendario.rule=Host(`pikachu.localhost`) && Path(`/legendario`)"
-      - "traefik.http.services.legendario.loadbalancer.server.port=80"
+      - "traefik.http.services.legendario.loadbalancer.server.port=5000"
+
+  servicio_interno:
+    image: neo4j:5
+    environment:
+      - NEO4J_AUTH=neo4j/
+    networks:
+      - poke_net
+    expose:
+      - "7474"
+      - "7687"
+
+  sala_prensa:
+    image: nginx:alpine
+    volumes:
+      - ./sala-prensa:/usr/share/nginx/html:ro
+    networks:
+      - poke_net
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.prensa.rule=Host(`bulbasur.localhost`)"
+      - "traefik.http.services.prensa.loadbalancer.server.port=80"
 
 networks:
   poke_net:
