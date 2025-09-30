@@ -42,6 +42,9 @@ Se ejecuta docker compose logs traefik:
 
 ## Etapa 3
 
+- Se configuró un hash para la autenticación de usuario con:
+  "traefik.http.middlewares.auth-charizard.basicauth.users=admin:$2y$05$/8oCMlVpJ0fgMGcmxLYJbegtcGRGH0I5/ZzustqxgPTUga0cAtm82"
+
 - Analogía:
 BasicAuth en Neo4j = Aduana en el aeropuerto
 Así como en el aeropuerto los pasajeros deben mostrar pasaporte o identificación antes de entrar a la zona internacional, Neo4j pide credenciales de usuario/contraseña antes de permitir el acceso.
