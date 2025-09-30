@@ -1,11 +1,12 @@
 services:
   traefik:
-    image: traefik:v2.10
+    image: traefik:v3.0
     container_name: traefik_proxy
     command:
       - "--api.insecure=true"
       - "--providers.docker=true"
       - "--entrypoints.web.address=:80"
+      - "--accesslog=true"
     ports:
       - "80:80"
       - "8080:8080"
@@ -17,7 +18,27 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.pikachu.rule=Host(`pikachu.localhost`)"
       - "traefik.http.routers.charizard.rule=Host(`charizard.localhost`)"
-      - "traefik.http.routers.mewtwo.rule=Host(`bulbasur.localhost`)"
+      - "traefik.http.routers.bulbasur.rule=Host(`bulbasur.localhost`)"
+
+  api_comercial:
+    image: nginx:alpine
+    deploy:
+      replicas: 2
+    networks:
+      - poke_net
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.comercial.rule=Host(pikachu.localhost)"
+      - "traefik.http.services.comercial.loadbalancer.server.port=80"
+
+  api_legendaria:
+    image: nginx:alpine
+    networks:
+      - poke_net
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.legendario.rule=Host(pikachu.localhost) && Path(/legendario)"
+      - "traefik.http.services.legendario.loadbalancer.server.port=80"
 
 networks:
   poke_net:
