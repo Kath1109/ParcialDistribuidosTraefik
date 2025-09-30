@@ -66,7 +66,7 @@ Igual que en seguridad se controla el flujo de pasajeros (no entran todos a la v
 
 - Pruebas del subdominio:
 
-<img width="768" height="206" alt="image" src="https://github.com/user-attachments/assets/0d272244-89d9-4699-9ef6-1c45e9f8e536" />
+<img width="767" height="282" alt="image" src="https://github.com/user-attachments/assets/c27ca57e-234b-4663-85ef-efa92cfd1ab9" />
 
 Se verifica con un curl antes y con credenciales:
 
