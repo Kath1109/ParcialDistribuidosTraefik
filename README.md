@@ -42,5 +42,10 @@ Se ejecuta docker compose logs traefik:
 
 ## Etapa 3
 
+- Analogía:
+BasicAuth en Neo4j = Aduana en el aeropuerto
+Así como en el aeropuerto los pasajeros deben mostrar pasaporte o identificación antes de entrar a la zona internacional, Neo4j pide credenciales de usuario/contraseña antes de permitir el acceso.
 
+RateLimit en la API = Control de seguridad
+Igual que en seguridad se controla el flujo de pasajeros (no entran todos a la vez para evitar congestión), el rateLimit limita cuántas solicitudes entran por segundo para proteger la API de abusos.
 
