@@ -60,3 +60,14 @@ Igual que en seguridad se controla el flujo de pasajeros (no entran todos a la v
 
 ## Etapa 4
 
+- Se comprueba los logs y que estén levantados los servicios:
+
+<img width="1917" height="257" alt="image" src="https://github.com/user-attachments/assets/beaac25b-e193-428e-b329-7dcd1e76d764" />
+
+- Pruebas del subdominio:
+
+<img width="768" height="206" alt="image" src="https://github.com/user-attachments/assets/0d272244-89d9-4699-9ef6-1c45e9f8e536" />
+
+Se verifica con un curl antes y con credenciales:
+
+<img width="1061" height="181" alt="image" src="https://github.com/user-attachments/assets/1e979a95-cd7a-4439-b593-143d4c3fbbb6" />
